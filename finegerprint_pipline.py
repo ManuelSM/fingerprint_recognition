@@ -53,7 +53,8 @@ def fingerprint_pipline(input_img):
     output_imgs = [input_img, normalized_img, segmented_img, orientation_img, gabor_img, thin_image, minutias, singularities_img]
     for i in range(len(output_imgs)):
         if len(output_imgs[i].shape) == 2:
-            output_imgs[i] = cv.cvtColor(output_imgs[i], cv.COLOR_GRAY2RGB)
+            img_float32 = np.float32(output_imgs[i])
+            output_imgs[i] = cv.cvtColor(img_float32, cv.COLOR_GRAY2RGB)
     results = np.concatenate([np.concatenate(output_imgs[:4], 1), np.concatenate(output_imgs[4:], 1)]).astype(np.uint8)
 
     return results
